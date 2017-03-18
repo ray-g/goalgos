@@ -25,8 +25,7 @@ func (s *Stack) Push(data interface{}) {
 	defer s.lock.Unlock()
 
 	ele := new(element)
-	ele.data = data
-	ele.next = s.top
+	ele.data, ele.next = data, s.top
 	s.top = ele
 
 	s.size++
