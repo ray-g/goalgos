@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/ray-g/goalgos.svg?branch=master)](https://travis-ci.org/ray-g/goalgos)
 
-Basic Data Structures and Algorithms implemented in Go. Just for practise with Go and some core CS concepts. Return to innocence.
+Basic Data Structures and Algorithms implemented in Go. Just for practise with Go and some core CS concepts. 
+
+Return to basic.
 
 ## Data Structures
 
