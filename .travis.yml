@@ -1,5 +1,11 @@
 language: go
 
+go:
+  - 1.7
+
 script:
   - go build -v ./...
-  - go test -v -parallel 5 -cover ./...
+  - test.sh
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
