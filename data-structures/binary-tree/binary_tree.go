@@ -1,4 +1,6 @@
-package binarytree
+package btree
+
+// https://en.wikipedia.org/wiki/Binary_tree
 
 import (
 	"github.com/ray-g/goalgos/data-structures/queue"
@@ -24,12 +26,7 @@ func New() *Tree {
 	return t
 }
 
-func NewRoot(root *Node) *Tree {
-	t := new(Tree)
-	t.root = root
-	return t
-}
-
+// Add to the first nil leaf. First is according BFS
 func (t *Tree) Add(value interface{}) {
 	node := makeNode(value)
 	if t.root == nil {
@@ -37,9 +34,6 @@ func (t *Tree) Add(value interface{}) {
 	} else {
 		added := false
 		t.BFS(func(n *Node) bool {
-			if added {
-				return false
-			}
 			if n.Left == nil {
 				node.Parent = n
 				n.Left = node
@@ -49,30 +43,98 @@ func (t *Tree) Add(value interface{}) {
 				n.Right = node
 				added = true
 			}
-			return !added
+			return added
 		})
 	}
 }
 
-func (t *Tree) Delete(value interface{}) bool {
-	deleted := false
+// Insert follow https://en.wikipedia.org/wiki/Binary_tree#Insertion
+func (t *Tree) Insert(value interface{}, at interface{}, toLeft bool) bool {
+	parent := t.Find(at)
+
+	if parent != nil {
+		node := makeNode(value)
+		node.Parent = parent
+		if toLeft {
+			if parent.Left == nil {
+				parent.Left = node
+			} else {
+				node.Left = parent.Left
+				node.Left.Parent, parent.Left = node, node
+			}
+		} else {
+			if parent.Right == nil {
+				parent.Right = node
+			} else {
+				node.Right = parent.Right
+				node.Right.Parent, parent.Right = node, node
+			}
+		}
+		return true
+	}
+	return false
+}
+
+// Delete follow https://en.wikipedia.org/wiki/Binary_tree#Deletion
+func (t *Tree) Delete(value interface{}) (deleted bool) {
+	deleted = true
+	node := t.Find(value)
+	if node == nil {
+		return
+	} else if node.Left != nil && node.Right != nil {
+		// Have both leaves, cannot delete
+		deleted = false
+	} else if node.Parent == nil {
+		// Root
+		if node.Left != nil {
+			t.root = node.Left
+		} else {
+			t.root = node.Right
+		}
+		t.root.Parent = nil
+	} else {
+		parent := node.Parent
+		if node.Left == nil && node.Right == nil {
+			// Leaf, just delete it
+			if parent.Left == node {
+				parent.Left = nil
+			} else {
+				parent.Right = nil
+			}
+			node.Parent = nil
+		} else if node.Left != nil {
+			// Left is not nil
+			node.Left.Parent = parent
+			if parent.Left == node {
+				parent.Left = node.Left
+			} else {
+				parent.Right = node.Left
+			}
+			node.Parent = nil
+		} else {
+			// Right is not nil
+			node.Right.Parent = parent
+			if parent.Left == node {
+				parent.Left = node.Right
+			} else {
+				parent.Right = node.Right
+			}
+			node.Parent = nil
+		}
+	}
+	return
+}
+
+func (t *Tree) Find(value interface{}) *Node {
+	var node *Node
 	t.BFS(func(n *Node) bool {
 		if n.Value == value {
-			if n.Parent != nil {
-				if n.Parent.Left == n {
-					n.Parent.Left = nil
-				} else {
-					n.Parent.Right = nil
-				}
-				n.Parent = nil
-			} else { // Root node
-				t.root = nil
-			}
-			deleted = true
+			node = n
+			return true
 		}
-		return !deleted
+		return false
 	})
-	return deleted
+	return node
 }
 
 // BFS Breadth First Search
@@ -94,7 +156,7 @@ func (t *Tree) BFS(f func(n *Node) bool) {
 			searchQ.EnQueue(node.Right)
 		}
 
-		if node == nil || !f(node) {
+		if node == nil || f(node) {
 			break
 		}
 	}
@@ -119,7 +181,7 @@ func (t *Tree) DFS(f func(n *Node) bool) {
 			searchS.Push(node.Left)
 		}
 
-		if node == nil || !f(node) {
+		if node == nil || f(node) {
 			break
 		}
 	}
