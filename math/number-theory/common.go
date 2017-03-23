@@ -1,32 +1,30 @@
 package number
 
-import "errors"
-
 // GCD Greatest Common Divisor
 // Using Euclid's algorithm
 // https://en.wikipedia.org/wiki/Greatest_common_divisor
-func GCD(a, b int) (int, error) {
+func GCD(a, b int) int {
 	if a == 0 || b == 0 {
-		return 0, errors.New("Must be non-zero number")
+		return 0
 	}
 
 	for b != 0 {
 		a, b = b, a%b
 	}
-	return a, nil
+	return a
 }
 
 // LCM Least Common Multiple
 // Using a*b/GCD(a,b)
 // https://en.wikipedia.org/wiki/Least_common_multiple
-func LCM(a, b int) (int, error) {
+func LCM(a, b int) int {
 	if a == 0 || b == 0 {
-		return 0, errors.New("Must be non-zero number")
+		return 0
 	}
 
-	gcd, _ := GCD(a, b)
+	gcd := GCD(a, b)
 
-	return a * b / gcd, nil
+	return a * b / gcd
 }
 
 // ISqrt Integer square root

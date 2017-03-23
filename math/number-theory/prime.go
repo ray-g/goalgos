@@ -1,7 +1,5 @@
 package number
 
-import "errors"
-
 func IsPrime(n int) bool {
 	if n == 2 {
 		return true
@@ -19,13 +17,12 @@ func IsPrime(n int) bool {
 	return true
 }
 
-func LargestPrimeBelow(n int) (p int, e error) {
+func LargestPrimeBelow(n int) (p int) {
 	if n < 2 {
-		return 0, errors.New("Number must larger than 2")
+		return 0
 	}
 
 	p = 0
-	e = nil
 
 	if IsPrime(n) {
 		p = n
@@ -64,13 +61,12 @@ func LargestPrimeBelow(n int) (p int, e error) {
 	return
 }
 
-func LargestPrimeFactor(n int) (p int, e error) {
+func LargestPrimeFactor(n int) (p int) {
 	if n < 2 {
-		return 0, errors.New("Number must larger than 2")
+		return 0
 	}
 
 	p = 1
-	e = nil
 
 	if IsPrime(n) {
 		p = n
