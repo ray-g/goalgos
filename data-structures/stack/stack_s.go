@@ -4,22 +4,22 @@ import "sync"
 
 // StackS is slice implemented stack
 type StackS struct {
+	sync.Mutex
+
 	stack []interface{}
-	lock  *sync.Mutex
 	size  int
 }
 
 func NewST() *StackS {
 	s := &StackS{}
 	s.stack = make([]interface{}, 0)
-	s.lock = &sync.Mutex{}
 
 	return s
 }
 
 func (s *StackS) Push(ele interface{}) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
+	s.Lock()
+	defer s.Unlock()
 
 	top := make([]interface{}, 1)
 	top[0] = ele
@@ -29,8 +29,8 @@ func (s *StackS) Push(ele interface{}) {
 }
 
 func (s *StackS) Pop() (ele interface{}) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
+	s.Lock()
+	defer s.Unlock()
 
 	if s.size == 0 {
 		return nil
@@ -42,15 +42,15 @@ func (s *StackS) Pop() (ele interface{}) {
 }
 
 func (s *StackS) Size() int {
-	s.lock.Lock()
-	defer s.lock.Unlock()
+	s.Lock()
+	defer s.Unlock()
 
 	return s.size
 }
 
 func (s *StackS) IsEmpty() bool {
-	s.lock.Lock()
-	defer s.lock.Unlock()
+	s.Lock()
+	defer s.Unlock()
 
 	return s.size == 0
 }
