@@ -1,8 +1,8 @@
 package binarytree
 
 import (
-	"goalgos/data-structures/queue"
-	"goalgos/data-structures/stack"
+	"github.com/ray-g/goalgos/data-structures/queue"
+	"github.com/ray-g/goalgos/data-structures/stack"
 )
 
 type Node struct {
@@ -36,7 +36,7 @@ func (t *Tree) Add(value interface{}) {
 		t.root = node
 	} else {
 		added := false
-		t.BreadthFirstSearch(func(n *Node) bool {
+		t.BFS(func(n *Node) bool {
 			if added {
 				return false
 			}
@@ -56,7 +56,7 @@ func (t *Tree) Add(value interface{}) {
 
 func (t *Tree) Delete(value interface{}) bool {
 	deleted := false
-	t.BreadthFirstSearch(func(n *Node) bool {
+	t.BFS(func(n *Node) bool {
 		if n.Value == value {
 			if n.Parent != nil {
 				if n.Parent.Left == n {
@@ -75,7 +75,8 @@ func (t *Tree) Delete(value interface{}) bool {
 	return deleted
 }
 
-func (t *Tree) BreadthFirstSearch(f func(n *Node) bool) {
+// BFS Breadth First Search
+func (t *Tree) BFS(f func(n *Node) bool) {
 	if t.root == nil {
 		return
 	}
@@ -99,7 +100,8 @@ func (t *Tree) BreadthFirstSearch(f func(n *Node) bool) {
 	}
 }
 
-func (t *Tree) DepthFirstSearch(f func(n *Node) bool) {
+// DFS Depth First Search
+func (t *Tree) DFS(f func(n *Node) bool) {
 	if t.root == nil {
 		return
 	}
