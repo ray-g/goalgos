@@ -12,5 +12,10 @@ Return to basic.
 - [Stack](data-structures/stack)
 - [Queue](data-structures/queue)
 - [Linked List](data-structures/linked-list)
+- [Binary Tree](data-structures/binary-tree)
 
 ## Algorithms
+
+## Math
+
+- [Number Theory](math/number-theory)
