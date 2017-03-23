@@ -31,7 +31,7 @@ func TestTreeAdd(t *testing.T) {
 	num := []int{40, 41}
 
 	verify := func() {
-		for val := range num {
+		for _, val := range num {
 			tree.Add(val)
 
 			found := false
