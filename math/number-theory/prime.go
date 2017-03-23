@@ -32,11 +32,6 @@ func LargestPrimeBelow(n int) (p int) {
 	d := n % 6
 	i := n - d
 
-	if d == 5 && IsPrime(i+5) {
-		p = i + 5
-		return
-	}
-
 	if d >= 1 && IsPrime(i+1) {
 		p = i + 1
 		return
@@ -50,12 +45,12 @@ func LargestPrimeBelow(n int) (p int) {
 	for ; i > 0; i -= 6 {
 		if IsPrime(i - 1) {
 			p = i - 1
-			return
+			break
 		}
 
 		if IsPrime(i - 5) {
 			p = i - 5
-			return
+			break
 		}
 	}
 	return
@@ -66,7 +61,7 @@ func LargestPrimeFactor(n int) (p int) {
 		return 0
 	}
 
-	p = 1
+	p = 0
 
 	if IsPrime(n) {
 		p = n
@@ -88,12 +83,14 @@ func LargestPrimeFactor(n int) (p int) {
 	for i := 6; i < ISqrt(n); i += 6 {
 		x := i + 1
 		if IsPrime(x) && n%x == 0 {
-			return LargestPrimeFactor(n / x)
+			p = LargestPrimeFactor(n / x)
+			break
 		}
 
 		x = i + 5
 		if IsPrime(x) && n%x == 0 {
-			return LargestPrimeFactor(n / x)
+			p = LargestPrimeFactor(n / x)
+			break
 		}
 	}
 	return
