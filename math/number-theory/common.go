@@ -18,11 +18,11 @@ func GCD(a, b int) int {
 // Using a*b/GCD(a,b)
 // https://en.wikipedia.org/wiki/Least_common_multiple
 func LCM(a, b int) int {
-	if a == 0 || b == 0 {
+	gcd := GCD(a, b)
+
+	if gcd == 0 {
 		return 0
 	}
-
-	gcd := GCD(a, b)
 
 	return a * b / gcd
 }
