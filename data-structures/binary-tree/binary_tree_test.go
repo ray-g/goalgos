@@ -221,6 +221,16 @@ func TestTreeBFS(t *testing.T) {
 	}
 }
 
+func BenchmarkBFS(b *testing.B) {
+	tree := makeBTree(1000)
+
+	for i := 0; i < b.N; i++ {
+		tree.BFS(func(n *Node) bool {
+			return false
+		})
+	}
+}
+
 func TestTreeDFS(t *testing.T) {
 	tree := makeBTree(0)
 	count := 0
@@ -245,5 +255,15 @@ func TestTreeDFS(t *testing.T) {
 	})
 	if index != 32 || !good {
 		t.Error()
+	}
+}
+
+func BenchmarkDFS(b *testing.B) {
+	tree := makeBTree(1000)
+
+	for i := 0; i < b.N; i++ {
+		tree.DFS(func(n *Node) bool {
+			return false
+		})
 	}
 }
