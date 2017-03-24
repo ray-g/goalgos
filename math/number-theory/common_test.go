@@ -18,6 +18,12 @@ func TestGCD(t *testing.T) {
 	}
 }
 
+func BenchmarkGCD(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		GCD(123456789, 987654321)
+	}
+}
+
 func TestLCM(t *testing.T) {
 	cases := [][]int{
 		[]int{0, 5, 0},
@@ -31,6 +37,12 @@ func TestLCM(t *testing.T) {
 		if v != vars[2] {
 			t.Errorf("LCM(%d, %d) != %d, returned: %d", vars[0], vars[1], vars[2], v)
 		}
+	}
+}
+
+func BenchmarkLCM(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		LCM(123456789, 987654321)
 	}
 }
 
@@ -50,5 +62,11 @@ func TestISqrt(t *testing.T) {
 		if v != vars[1] {
 			t.Errorf("ISqrt(%d) != %d, returned: %d", vars[0], vars[1], v)
 		}
+	}
+}
+
+func BenchmarkISqrt(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ISqrt(123456789)
 	}
 }
