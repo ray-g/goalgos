@@ -163,11 +163,23 @@ func (t *Tree) BFS(f func(n *Node) bool) {
 }
 
 // DFS Depth First Search
-func (t *Tree) DFS(f func(n *Node) bool) {
+func (t *Tree) DFSStack(f func(n *Node) bool) {
 	if t.root == nil {
 		return
 	}
 
+	t.dfsStack(f)
+}
+
+func (t *Tree) DFSRecursive(f func(n *Node) bool) {
+	if t.root == nil {
+		return
+	}
+
+	t.root.dfsNext(f)
+}
+
+func (t *Tree) dfsStack(f func(n *Node) bool) {
 	searchS := stack.New()
 	searchS.Push(t.root)
 
@@ -185,4 +197,19 @@ func (t *Tree) DFS(f func(n *Node) bool) {
 			break
 		}
 	}
+}
+
+func (n *Node) dfsNext(f func(n *Node) bool) bool {
+	if f(n) {
+		return true
+	}
+
+	found := false
+	if n.Left != nil {
+		found = n.Left.dfsNext(f)
+	}
+	if !found && n.Right != nil {
+		found = n.Right.dfsNext(f)
+	}
+	return found
 }

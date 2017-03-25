@@ -35,7 +35,7 @@ func TestTreeAdd(t *testing.T) {
 			tree.Add(val)
 
 			found := false
-			tree.DFS(func(n *Node) bool {
+			tree.DFSRecursive(func(n *Node) bool {
 				if n.Value.(int) == val {
 					found = true
 					return true
@@ -234,7 +234,15 @@ func BenchmarkBFS(b *testing.B) {
 func TestTreeDFS(t *testing.T) {
 	tree := makeBTree(0)
 	count := 0
-	tree.DFS(func(n *Node) bool {
+	tree.DFSStack(func(n *Node) bool {
+		count++
+		return false
+	})
+	if count != 0 {
+		t.Error()
+	}
+
+	tree.DFSRecursive(func(n *Node) bool {
 		count++
 		return false
 	})
@@ -243,10 +251,46 @@ func TestTreeDFS(t *testing.T) {
 	}
 
 	tree = sampleTree()
+
+	found := false
+	tree.DFSStack(func(n *Node) bool {
+		if n.Value.(int) == 15 {
+			found = true
+		}
+		return found
+	})
+	if !found {
+		t.Error()
+	}
+
+	found = false
+	tree.DFSRecursive(func(n *Node) bool {
+		if n.Value.(int) == 15 {
+			found = true
+		}
+		return found
+	})
+	if !found {
+		t.Error()
+	}
+
 	index := 0
 	good := true
 	order := []int{0, 1, 3, 7, 15, 31, 16, 8, 17, 18, 4, 9, 19, 20, 10, 21, 22, 2, 5, 11, 23, 24, 12, 25, 26, 6, 13, 27, 28, 14, 29, 30}
-	tree.DFS(func(n *Node) bool {
+	tree.DFSStack(func(n *Node) bool {
+		if n.Value.(int) != order[index] {
+			good = false
+		}
+		index++
+		return false
+	})
+	if index != 32 || !good {
+		t.Error()
+	}
+
+	index = 0
+	good = true
+	tree.DFSRecursive(func(n *Node) bool {
 		if n.Value.(int) != order[index] {
 			good = false
 		}
@@ -258,11 +302,21 @@ func TestTreeDFS(t *testing.T) {
 	}
 }
 
-func BenchmarkDFS(b *testing.B) {
+func BenchmarkDFSStack(b *testing.B) {
 	tree := makeBTree(1000)
 
 	for i := 0; i < b.N; i++ {
-		tree.DFS(func(n *Node) bool {
+		tree.DFSStack(func(n *Node) bool {
+			return false
+		})
+	}
+}
+
+func BenchmarkDFSRecursive(b *testing.B) {
+	tree := makeBTree(1000)
+
+	for i := 0; i < b.N; i++ {
+		tree.DFSRecursive(func(n *Node) bool {
 			return false
 		})
 	}
