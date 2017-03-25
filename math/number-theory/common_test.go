@@ -2,6 +2,26 @@ package number
 
 import "testing"
 
+func TestIsOdd(t *testing.T) {
+	b := true
+	for n := -31; n < 32; n++ {
+		if IsOdd(n) != b {
+			t.Errorf("IsOdd(%d) returned: %v", n, !b)
+		}
+		b = !b
+	}
+}
+
+func TestIsEven(t *testing.T) {
+	b := true
+	for n := -32; n < 32; n++ {
+		if IsEven(n) != b {
+			t.Errorf("IsEven(%d) returned: %v", n, !b)
+		}
+		b = !b
+	}
+}
+
 func TestGCD(t *testing.T) {
 	cases := [][]int{
 		[]int{0, 5, 0},

@@ -1,5 +1,13 @@
 package number
 
+func IsOdd(n int) bool {
+	return n&1 != 0
+}
+
+func IsEven(n int) bool {
+	return n%2 == 0
+}
+
 // GCD Greatest Common Divisor
 // Using Euclid's algorithm
 // https://en.wikipedia.org/wiki/Greatest_common_divisor
