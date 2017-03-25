@@ -17,6 +17,27 @@ func IsPrime(n int) bool {
 	return true
 }
 
+func SieveOfEratosthenes(n int) []int {
+	if n < 2 {
+		return nil
+	}
+	nums := make([]bool, n)
+	for i := 2; i <= ISqrt(n); i++ {
+		if nums[i] == false {
+			for j := i * i; j < n; j += i {
+				nums[j] = true
+			}
+		}
+	}
+	primes := []int{2}
+	for i := 3; i < n; i += 2 {
+		if nums[i] == false {
+			primes = append(primes, i)
+		}
+	}
+	return primes
+}
+
 func LargestPrimeBelow(n int) (p int) {
 	if n < 2 {
 		return 0

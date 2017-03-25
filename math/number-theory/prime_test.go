@@ -18,6 +18,26 @@ func TestIsPrime(t *testing.T) {
 	}
 }
 
+func TestSieveOfEratosthenes(t *testing.T) {
+	primes := []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53}
+	results := SieveOfEratosthenes(55)
+	for i, v := range results {
+		if primes[i] != v {
+			t.Errorf("%dth results %d not same as %d", i, v, primes[i])
+		}
+	}
+
+	results = SieveOfEratosthenes(1)
+	if results != nil {
+		t.Error()
+	}
+
+	results = SieveOfEratosthenes(2)
+	if len(results) != 1 {
+		t.Error()
+	}
+}
+
 func TestLargestPrimeBelow(t *testing.T) {
 	cases := [][]int{
 		[]int{0, 0},
