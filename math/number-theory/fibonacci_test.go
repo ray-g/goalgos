@@ -20,14 +20,14 @@ func TestFibonacci(t *testing.T) {
 	}
 }
 
-func benchmarkFibonacci(n int, b *testing.B) {
+func benchmarkFibonacci(b *testing.B, n int) {
 	for i := 0; i < b.N; i++ {
 		Fibonacci(n)
 	}
 }
 
-func BenchmarkFibonacci10(b *testing.B)     { benchmarkFibonacci(10, b) }
-func BenchmarkFibonacci100(b *testing.B)    { benchmarkFibonacci(100, b) }
-func BenchmarkFibonacci1000(b *testing.B)   { benchmarkFibonacci(1000, b) }
-func BenchmarkFibonacci10000(b *testing.B)  { benchmarkFibonacci(10000, b) }
-func BenchmarkFibonacci100000(b *testing.B) { benchmarkFibonacci(100000, b) }
+func BenchmarkFibonacci10(b *testing.B)     { benchmarkFibonacci(b, 10) }
+func BenchmarkFibonacci100(b *testing.B)    { benchmarkFibonacci(b, 100) }
+func BenchmarkFibonacci1000(b *testing.B)   { benchmarkFibonacci(b, 1000) }
+func BenchmarkFibonacci10000(b *testing.B)  { benchmarkFibonacci(b, 10000) }
+func BenchmarkFibonacci100000(b *testing.B) { benchmarkFibonacci(b, 100000) }
