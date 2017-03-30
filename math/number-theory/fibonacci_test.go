@@ -1,6 +1,9 @@
 package number
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestFibonacci(t *testing.T) {
 	cases := [][]int{
@@ -31,3 +34,10 @@ func BenchmarkFibonacci100(b *testing.B)    { benchmarkFibonacci(b, 100) }
 func BenchmarkFibonacci1000(b *testing.B)   { benchmarkFibonacci(b, 1000) }
 func BenchmarkFibonacci10000(b *testing.B)  { benchmarkFibonacci(b, 10000) }
 func BenchmarkFibonacci100000(b *testing.B) { benchmarkFibonacci(b, 100000) }
+
+func ExampleFibonacci() {
+	fib := Fibonacci(10)
+	fmt.Println(fib)
+	// Output:
+	// 89
+}
