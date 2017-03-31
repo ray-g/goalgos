@@ -321,3 +321,24 @@ func BenchmarkDFSRecursive(b *testing.B) {
 		})
 	}
 }
+
+func TestDepth(t *testing.T) {
+	tree := makeBTree(0)
+
+	if tree.Depth() != 0 {
+		t.Error()
+	}
+
+	tree = sampleTree()
+	if tree.Depth() != 6 {
+		t.Error()
+	}
+}
+
+func BenchmarkDepth(b *testing.B) {
+	tree := makeBTree(1000)
+
+	for i := 0; i < b.N; i++ {
+		tree.Depth()
+	}
+}

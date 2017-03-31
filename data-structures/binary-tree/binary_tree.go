@@ -5,6 +5,7 @@ package btree
 import (
 	"github.com/ray-g/goalgos/data-structures/queue"
 	"github.com/ray-g/goalgos/data-structures/stack"
+	number "github.com/ray-g/goalgos/math/number-theory"
 )
 
 type Node struct {
@@ -212,4 +213,16 @@ func (n *Node) dfsNext(f func(n *Node) bool) bool {
 		found = n.Right.dfsNext(f)
 	}
 	return found
+}
+
+func depth(n *Node) int {
+	if n == nil {
+		return 0
+	}
+
+	return 1 + number.Max(depth(n.Left), depth(n.Right))
+}
+
+func (t *Tree) Depth() int {
+	return depth(t.root)
 }
