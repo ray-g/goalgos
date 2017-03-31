@@ -223,7 +223,7 @@ func TestTreeBFS(t *testing.T) {
 
 func BenchmarkBFS(b *testing.B) {
 	tree := makeBTree(1000)
-
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		tree.BFS(func(n *Node) bool {
 			return false
@@ -304,7 +304,7 @@ func TestTreeDFS(t *testing.T) {
 
 func BenchmarkDFSStack(b *testing.B) {
 	tree := makeBTree(1000)
-
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		tree.DFSStack(func(n *Node) bool {
 			return false
@@ -314,7 +314,7 @@ func BenchmarkDFSStack(b *testing.B) {
 
 func BenchmarkDFSRecursive(b *testing.B) {
 	tree := makeBTree(1000)
-
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		tree.DFSRecursive(func(n *Node) bool {
 			return false
@@ -337,7 +337,7 @@ func TestDepth(t *testing.T) {
 
 func BenchmarkDepth(b *testing.B) {
 	tree := makeBTree(1000)
-
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		tree.Depth()
 	}
