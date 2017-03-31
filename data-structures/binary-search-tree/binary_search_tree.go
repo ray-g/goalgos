@@ -1,6 +1,10 @@
 package bstree
 
-import "reflect"
+import (
+	"reflect"
+
+	number "github.com/ray-g/goalgos/math/number-theory"
+)
 
 // https://en.wikipedia.org/wiki/Binary_search_tree
 
@@ -14,8 +18,8 @@ type Node struct {
 	Left, Right *Node
 }
 
-func (n *Node) less(o *Node) bool {
-	return n.Value.Less(o.Value)
+func (n *Node) less(than *Node) bool {
+	return n.Value.Less(than.Value)
 }
 
 func makeNode(value interface{}) *Node {
@@ -26,9 +30,9 @@ func makeNode(value interface{}) *Node {
 }
 
 type BSTree struct {
-	root  *Node
-	typ   reflect.Type
-	count int
+	root *Node
+	typ  reflect.Type
+	size int
 }
 
 func New(typ reflect.Type) *BSTree {
@@ -73,12 +77,12 @@ func (t *BSTree) Insert(value interface{}) bool {
 
 	if t.root == nil {
 		t.root = node
-		t.count++
+		t.size++
 		return true
 	}
 
 	if insertNode(node, t.root) {
-		t.count++
+		t.size++
 		return true
 	}
 	return false
@@ -125,8 +129,17 @@ func (t *BSTree) Delete(value interface{}) bool {
 		}
 
 		if node.Left != nil && node.Right != nil {
-			child := node.Left
+			var child, cut *Node
 			parent := node.Parent
+			if depth(node.Left) < depth(node.Right) {
+				child = node.Left
+				cut = node.Right
+				node.Left = nil
+			} else {
+				child = node.Right
+				cut = node.Left
+				node.Right = nil
+			}
 			child.Parent = parent
 			if parent.Left == node {
 				parent.Left = child
@@ -135,14 +148,13 @@ func (t *BSTree) Delete(value interface{}) bool {
 			}
 
 			node.Parent = nil
-			node.Left = nil
 
-			node.Right.dfsNext(func(n *Node) bool {
+			cut.dfsNext(func(n *Node) bool {
 				t.Insert(n.Value)
 				return false
 			})
 		}
-		t.count--
+		t.size--
 	}
 
 	return true
@@ -175,11 +187,8 @@ func (t *BSTree) Find(value interface{}) *Node {
 	return findNode(makeNode(value), t.root)
 }
 
-func (t *BSTree) Balance() {
-}
-
-func (t *BSTree) Len() int {
-	return t.count
+func (t *BSTree) Size() int {
+	return t.size
 }
 
 func (t *BSTree) IsBST() bool {
@@ -215,4 +224,24 @@ func (t *BSTree) Each(f func(n *Node) bool) {
 	}
 
 	t.root.dfsNext(f)
+}
+
+func depth(n *Node) int {
+	if n == nil {
+		return 0
+	}
+
+	return 1 + number.Max(depth(n.Left), depth(n.Right))
+}
+
+func (t *BSTree) Depth() int {
+	return depth(t.root)
+}
+
+func balanceFactor(n *Node) int {
+	return depth(n.Right) - depth(n.Left)
+}
+
+func (t *BSTree) BalanceFactor() int {
+	return balanceFactor(t.root)
 }
