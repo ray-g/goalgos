@@ -90,3 +90,17 @@ func BenchmarkISqrt(b *testing.B) {
 		ISqrt(123456789)
 	}
 }
+
+func TestMax(t *testing.T) {
+	if Max(1, 2) != 2 {
+		t.Error()
+	}
+
+	if Max(1, 1) != 1 {
+		t.Error()
+	}
+
+	if Max(1, 0) != 1 {
+		t.Error()
+	}
+}

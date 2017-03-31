@@ -46,3 +46,10 @@ func ISqrt(n int) int {
 	}
 	return x
 }
+
+func Max(x, y int) int {
+	if x >= y {
+		return x
+	}
+	return y
+}
