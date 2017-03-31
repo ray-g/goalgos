@@ -3,6 +3,7 @@ package avltree
 import (
 	"fmt"
 	"reflect"
+	"strings"
 
 	number "github.com/ray-g/goalgos/math/number-theory"
 )
@@ -375,4 +376,42 @@ func rotateRightLeft(root, pivot *Node) *Node {
 	root.Right = pivot
 	rotateLeft(root, pivot)
 	return pivot
+}
+
+// Dump dumps the structure of the subtree starting at node n
+// including node search values and balance factors.
+// Parameter i sets the line indent.
+// lr is a prefix denoting the left or the right child, respectively.
+func (n *Node) Dump(i int, lr string) {
+	if n == nil {
+		return
+	}
+
+	indent := ""
+	if i > 0 {
+		indent = strings.Repeat("|  ", (i-1)) + "+" + lr + ":"
+	}
+	fmt.Printf("%s%v[%d]\n", indent, n.Value, balanceFactor(n))
+	n.Left.Dump(i+1, "L")
+	n.Right.Dump(i+1, "R")
+}
+
+func (t *AVLTree) Dump() {
+	t.root.Dump(0, "")
+}
+
+func (t *AVLTree) MinNode() *Node {
+	node := t.root
+	for node.Left != nil {
+		node = node.Left
+	}
+	return node
+}
+
+func (t *AVLTree) MaxNode() *Node {
+	node := t.root
+	for node.Right != nil {
+		node = node.Right
+	}
+	return node
 }
