@@ -1,4 +1,4 @@
-package sort
+package sorting
 
 type Sortable interface {
 	Len() int

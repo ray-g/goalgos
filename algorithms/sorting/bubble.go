@@ -1,10 +1,6 @@
-package bubble
+package sorting
 
-import (
-	"github.com/ray-g/goalgos/algorithms/sort"
-)
-
-func Sort(v sort.Sortable) {
+func BubbleSort(v Sortable) {
 	for i := 0; i < v.Len(); i++ {
 		for j := 0; j < v.Len(); j++ {
 			if v.Less(i, j) {
