@@ -38,3 +38,7 @@ func BenchmarkBubbleSort1000(b *testing.B) { benchmarkSort(b, BubbleSort, 1000) 
 
 // func BenchmarkBubbleSort10000(b *testing.B)  { benchmarkSort(b, BubbleSort, 10000) }
 // func BenchmarkBubbleSort100000(b *testing.B) { benchmarkSort(b, BubbleSort, 100000) }
+
+func BenchmarkQuickSort1000(b *testing.B)   { benchmarkSort(b, QuickSort, 1000) }
+func BenchmarkQuickSort10000(b *testing.B)  { benchmarkSort(b, QuickSort, 10000) }
+func BenchmarkQuickSort100000(b *testing.B) { benchmarkSort(b, QuickSort, 100000) }

@@ -36,3 +36,4 @@ func testSort(t *testing.T, name string, foo func(s Sortable)) {
 }
 
 func TestBubbleSort(t *testing.T) { testSort(t, "BubbleSort", BubbleSort) }
+func TestQuickSort(t *testing.T)  { testSort(t, "QuickSort", QuickSort) }
