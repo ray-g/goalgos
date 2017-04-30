@@ -14,7 +14,9 @@ func (ns IntSlice) Swap(i, j int)      { ns[i], ns[j] = ns[j], ns[i] }
 
 func testSort(t *testing.T, name string, foo func(s Sortable)) {
 	tcs := [][]int{
+		[]int{},
 		[]int{3, 1, 2},
+		[]int{3, 3, 1, 2, 2, 1},
 	}
 
 	for _, tc := range tcs {
