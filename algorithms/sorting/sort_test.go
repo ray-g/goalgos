@@ -12,12 +12,16 @@ func (ns IntSlice) Len() int           { return len(ns) }
 func (ns IntSlice) Less(i, j int) bool { return ns[i] < ns[j] }
 func (ns IntSlice) Swap(i, j int)      { ns[i], ns[j] = ns[j], ns[i] }
 
-func testSort(t *testing.T, name string, foo func(s Sortable)) {
-	tcs := [][]int{
+func makeTestCases() [][]int {
+	return [][]int{
 		[]int{},
 		[]int{3, 1, 2},
 		[]int{3, 3, 1, 2, 2, 1},
 	}
+}
+
+func testSort(t *testing.T, name string, foo func(s Sortable)) {
+	tcs := makeTestCases()
 
 	for _, tc := range tcs {
 		expects := make([]int, len(tc))
@@ -37,3 +41,4 @@ func testSort(t *testing.T, name string, foo func(s Sortable)) {
 
 func TestBubbleSort(t *testing.T) { testSort(t, "BubbleSort", BubbleSort) }
 func TestQuickSort(t *testing.T)  { testSort(t, "QuickSort", QuickSort) }
+func TestHeapSort(t *testing.T)   { testSort(t, "HeapSort", HeapSort) }
