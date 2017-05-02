@@ -104,3 +104,17 @@ func TestMax(t *testing.T) {
 		t.Error()
 	}
 }
+
+func TestMin(t *testing.T) {
+	if Min(1, 2) != 1 {
+		t.Error()
+	}
+
+	if Min(1, 1) != 1 {
+		t.Error()
+	}
+
+	if Min(1, 0) != 0 {
+		t.Error()
+	}
+}
