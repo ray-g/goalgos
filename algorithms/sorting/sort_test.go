@@ -44,3 +44,4 @@ func TestBubbleSort(t *testing.T)    { testSort(t, "BubbleSort", BubbleSort) }
 func TestQuickSort(t *testing.T)     { testSort(t, "QuickSort", QuickSort) }
 func TestHeapSort(t *testing.T)      { testSort(t, "HeapSort", HeapSort) }
 func TestSelectionSort(t *testing.T) { testSort(t, "SelectionSort", SelectionSort) }
+func TestInsertionSort(t *testing.T) { testSort(t, "InsertionSort", InsertionSort) }

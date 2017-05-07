@@ -47,3 +47,7 @@ func BenchmarkHeapSort100000(b *testing.B) { benchmarkSort(b, HeapSort, 100000) 
 // func BenchmarkSelectionSort10000(b *testing.B) { benchmarkSort(b, SelectionSort, 10000) }
 // func BenchmarkSelectionSort100000(b *testing.B) { benchmarkSort(b, SelectionSort, 100000) }
 func BenchmarkSelectionSort1000(b *testing.B) { benchmarkSort(b, SelectionSort, 1000) }
+
+//func BenchmarkInsertionSort100000(b *testing.B) { benchmarkSort(b, InsertionSort, 100000) }
+func BenchmarkInsertionSort1000(b *testing.B)  { benchmarkSort(b, InsertionSort, 1000) }
+func BenchmarkInsertionSort10000(b *testing.B) { benchmarkSort(b, InsertionSort, 10000) }
