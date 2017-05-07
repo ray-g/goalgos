@@ -40,9 +40,30 @@ func testSort(t *testing.T, name string, foo func(s Sortable)) {
 	}
 }
 
+func testSortInt(t *testing.T, name string, foo func(s []int)) {
+	tcs := makeTestCases()
+
+	for _, tc := range tcs {
+		expects := make([]int, len(tc))
+		actual := make([]int, len(tc))
+
+		copy(expects, tc)
+		copy(actual, tc)
+
+		sort.Sort(IntSlice(expects))
+		foo(actual)
+
+		if !reflect.DeepEqual(actual, expects) {
+			t.Errorf("Error \"%s\"\nInput: %v\nExpects: %v\nActual: %v", name, tc, expects, actual)
+		}
+	}
+}
+
 func TestBubbleSort(t *testing.T)    { testSort(t, "BubbleSort", BubbleSort) }
 func TestQuickSort(t *testing.T)     { testSort(t, "QuickSort", QuickSort) }
 func TestHeapSort(t *testing.T)      { testSort(t, "HeapSort", HeapSort) }
 func TestSelectionSort(t *testing.T) { testSort(t, "SelectionSort", SelectionSort) }
 func TestInsertionSort(t *testing.T) { testSort(t, "InsertionSort", InsertionSort) }
 func TestShellSort(t *testing.T)     { testSort(t, "ShellSort", ShellSort) }
+func TestMergeSortDown(t *testing.T) { testSortInt(t, "MergeSortDown", MergeSortDown) }
+func TestMergeSortUp(t *testing.T)   { testSortInt(t, "MergeSortUp", MergeSortUp) }
