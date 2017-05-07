@@ -51,3 +51,7 @@ func BenchmarkSelectionSort1000(b *testing.B) { benchmarkSort(b, SelectionSort, 
 //func BenchmarkInsertionSort100000(b *testing.B) { benchmarkSort(b, InsertionSort, 100000) }
 func BenchmarkInsertionSort1000(b *testing.B)  { benchmarkSort(b, InsertionSort, 1000) }
 func BenchmarkInsertionSort10000(b *testing.B) { benchmarkSort(b, InsertionSort, 10000) }
+
+func BenchmarkShellSort1000(b *testing.B)   { benchmarkSort(b, ShellSort, 1000) }
+func BenchmarkShellSort10000(b *testing.B)  { benchmarkSort(b, ShellSort, 10000) }
+func BenchmarkShellSort100000(b *testing.B) { benchmarkSort(b, ShellSort, 100000) }
