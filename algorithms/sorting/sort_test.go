@@ -17,6 +17,7 @@ func makeTestCases() [][]int {
 		[]int{},
 		[]int{3, 1, 2},
 		[]int{3, 3, 1, 2, 2, 1},
+		[]int{1, 3, 5, 4, 8, 7, 9, 6, 2, 0},
 	}
 }
 
@@ -39,6 +40,7 @@ func testSort(t *testing.T, name string, foo func(s Sortable)) {
 	}
 }
 
-func TestBubbleSort(t *testing.T) { testSort(t, "BubbleSort", BubbleSort) }
-func TestQuickSort(t *testing.T)  { testSort(t, "QuickSort", QuickSort) }
-func TestHeapSort(t *testing.T)   { testSort(t, "HeapSort", HeapSort) }
+func TestBubbleSort(t *testing.T)    { testSort(t, "BubbleSort", BubbleSort) }
+func TestQuickSort(t *testing.T)     { testSort(t, "QuickSort", QuickSort) }
+func TestHeapSort(t *testing.T)      { testSort(t, "HeapSort", HeapSort) }
+func TestSelectionSort(t *testing.T) { testSort(t, "SelectionSort", SelectionSort) }
