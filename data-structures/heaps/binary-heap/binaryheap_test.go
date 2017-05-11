@@ -16,12 +16,20 @@ func TestMinHeap(t *testing.T) {
 		h.Insert(Int(n))
 	}
 
+	if 0 != h.Top().(Int) {
+		t.Error()
+	}
+
 	ordered := make([]Int, 0)
 	for h.Len() > 0 {
 		ordered = append(ordered, h.Extract().(Int))
 	}
 
 	if nil != h.Extract() {
+		t.Error()
+	}
+
+	if nil != h.Top() {
 		t.Error()
 	}
 
@@ -40,12 +48,20 @@ func TestMaxHeap(t *testing.T) {
 		h.Insert(Int(n))
 	}
 
+	if 9 != h.Top().(Int) {
+		t.Error()
+	}
+
 	ordered := make([]Int, 0)
 	for h.Len() > 0 {
 		ordered = append(ordered, h.Extract().(Int))
 	}
 
 	if nil != h.Extract() {
+		t.Error()
+	}
+
+	if nil != h.Top() {
 		t.Error()
 	}
 

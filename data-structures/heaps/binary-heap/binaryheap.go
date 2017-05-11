@@ -77,3 +77,11 @@ func (h *Heap) Extract() (n Item) {
 	}
 	return
 }
+
+func (h *Heap) Top() (n Item) {
+	if h.IsEmpty() {
+		return
+	}
+
+	return h.data[1]
+}
