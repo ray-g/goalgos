@@ -60,3 +60,47 @@ func Min(x, y int) int {
 	}
 	return y
 }
+
+func MulOverflows64(a, b uint64) bool {
+	if a <= 1 || b <= 1 {
+		return false
+	}
+	c := a * b
+	return c/b != a
+}
+
+func MulOverflows32(a, b uint32) bool {
+	if a <= 1 || b <= 1 {
+		return false
+	}
+	c := a * b
+	return c/b != a
+}
+
+const mostNegative64 = -(mostPositive64 + 1)
+const mostPositive64 = 1<<63 - 1
+
+func SignedMulOverflows64(a, b int64) bool {
+	if a == 0 || b == 0 || a == 1 || b == 1 {
+		return false
+	}
+	if a == mostNegative64 || b == mostNegative64 {
+		return true
+	}
+	c := a * b
+	return c/b != a
+}
+
+const mostNegative32 = -(mostPositive32 + 1)
+const mostPositive32 = 1<<31 - 1
+
+func SignedMulOverflows32(a, b int32) bool {
+	if a == 0 || b == 0 || a == 1 || b == 1 {
+		return false
+	}
+	if a == mostNegative32 || b == mostNegative32 {
+		return true
+	}
+	c := a * b
+	return c/b != a
+}

@@ -118,3 +118,111 @@ func TestMin(t *testing.T) {
 		t.Error()
 	}
 }
+
+func TestMulOverflows64(t *testing.T) {
+	cases := []struct {
+		a, b    uint64
+		expects bool
+	}{
+		{0, 0, false},
+		{1, 1, false},
+		{0, 1, false},
+		{0, 1, false},
+		{1, 0, false},
+		{1, 0, false},
+		{1, 1<<64 - 1, false},
+		{1<<32 - 1, 1<<32 - 1, false},
+		{1 << 32, 1 << 32, true},
+	}
+
+	for _, tc := range cases {
+		actual := MulOverflows64(tc.a, tc.b)
+		if actual != tc.expects {
+			t.Errorf("%v * %v, expects %v, actual %v.", tc.a, tc.b, tc.expects, actual)
+		}
+	}
+}
+
+func TestMulOverflows32(t *testing.T) {
+	cases := []struct {
+		a, b    uint32
+		expects bool
+	}{
+		{0, 0, false},
+		{1, 1, false},
+		{0, 1, false},
+		{0, 1, false},
+		{1, 0, false},
+		{1, 0, false},
+		{1, 1<<32 - 1, false},
+		{1<<16 - 1, 1<<16 - 1, false},
+		{1 << 16, 1 << 16, true},
+	}
+
+	for _, tc := range cases {
+		actual := MulOverflows32(tc.a, tc.b)
+		if actual != tc.expects {
+			t.Errorf("%v * %v, expects %v, actual %v.", tc.a, tc.b, tc.expects, actual)
+		}
+	}
+}
+
+func TestSignedMulOverflows64(t *testing.T) {
+	cases := []struct {
+		a, b    int64
+		expects bool
+	}{
+		{0, 0, false},
+		{1, 1, false},
+		{0, 1, false},
+		{0, 1, false},
+		{1, 0, false},
+		{1, 0, false},
+		{-(1 << 63), 1<<63 - 1, true},
+		{1<<63 - 1, -(1 << 63), true},
+		{mostNegative64, 1<<63 - 1, true},
+		{1<<63 - 1, mostNegative64, true},
+		{1, 1<<63 - 1, false},
+		{1<<31 - 1, 1<<31 - 1, false},
+		{1 << 31, 1 << 31, false},
+		{1<<32 - 1, 1<<32 - 1, true},
+		{1 << 32, 1 << 32, true},
+	}
+
+	for _, tc := range cases {
+		actual := SignedMulOverflows64(tc.a, tc.b)
+		if actual != tc.expects {
+			t.Errorf("%v * %v, expects %v, actual %v.", tc.a, tc.b, tc.expects, actual)
+		}
+	}
+}
+
+func TestSignedMulOverflows32(t *testing.T) {
+	cases := []struct {
+		a, b    int32
+		expects bool
+	}{
+		{0, 0, false},
+		{1, 1, false},
+		{0, 1, false},
+		{0, 1, false},
+		{1, 0, false},
+		{1, 0, false},
+		{-(1 << 31), 1<<31 - 1, true},
+		{1<<31 - 1, -(1 << 31), true},
+		{mostNegative32, 1<<31 - 1, true},
+		{1<<31 - 1, mostNegative32, true},
+		{1, 1<<31 - 1, false},
+		{1<<15 - 1, 1<<15 - 1, false},
+		{1 << 15, 1 << 15, false},
+		{1<<16 - 1, 1<<16 - 1, true},
+		{1 << 16, 1 << 16, true},
+	}
+
+	for _, tc := range cases {
+		actual := SignedMulOverflows32(tc.a, tc.b)
+		if actual != tc.expects {
+			t.Errorf("%v * %v, expects %v, actual %v.", tc.a, tc.b, tc.expects, actual)
+		}
+	}
+}
